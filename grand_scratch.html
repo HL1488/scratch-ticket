@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html style="font-size: 40px;">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Ilahui Lucky Draw</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="layoutmode" content="standard">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="renderer" content="webkit">
+    <meta name="wap-font-scale" content="no">
+    <meta content="telephone=no" name="format-detection">
+    <meta http-equiv="Pragma" content="no-cache">
+    <script type="text/javascript">
+        // history.go(1);
+
+        var _htmlFontSize = (function () {
+            var clientWidth = document.documentElement ? document.documentElement.clientWidth : document.body.clientWidth;
+            if (clientWidth > 640) clientWidth = 640;
+            document.documentElement.style.fontSize = clientWidth * 1 / 16 + "px";
+            return clientWidth * 1 / 16;
+        })();
+    </script>
+    <link rel="stylesheet" type="text/css" href="css/base.min.css"/>
+    <!-- <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/demo.css"> -->
+
+</head>
+
+<body class="main_box" style="background-color: #eee">
+<div class="box">
+    <div class="bg_in">
+        <div class="title">•&nbsp;刮奖区&nbsp;•</div>
+    </div>
+    <div class="content">
+        <div id="mask_img_bg"><span class="cont-span"></span>
+            <!--<img/>-->
+        </div>
+        <img id="redux" src="images/layer.png"/>
+    </div>
+    <!--次数-->
+    <div class="hint-num">
+        <p>You still have <strong class="clicknum">0</strong> scratch chances</p>
+    </div>
+</div>
+
+<div class="hint-show">
+    <img class="hint-img" src="images/hint.png">
+    <img class="colour-img" src="images/colour.png" alt="">
+    <!--<img class="prize-img"/>-->
+    <span class="prize-span"></span>
+    <a class="close"></a>
+    <a class="btn"></a>
+</div>
+
+<div class="join">
+   <a class="btn"></a>
+</div>
+<div class="logo">
+  <img src="images/logo.png" alt="">
+</div>
+<div class="mask"></div>
+<div class="fireworks"></div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<!--<script type="text/javascript" src="js/zepto.m.js"></script>-->
+<script type="text/javascript" src="js/jquery.eraser.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/jquery.fireworks.js"></script>
+<script type="text/javascript">
+    $('.fireworks').fireworks({
+      sound: false, // sound effect
+      opacity: 0.5,
+      width: '100%',
+      height: '100%'
+    });
+    $('.fireworks').hide();
+
+    $(window).load(function () {
+        /*var imgarr = ["images/prize01.jpg", "images/prize02.jpg", "images/prize03.jpg", "images/prize04.jpg", "images/prize05.jpg", "images/prize06.jpg"];*/
+        // var imgarr = ["特等奖", "一等奖", "二等奖", "三等奖", "四等奖", "五等奖", "谢谢参与"];
+        var imgarr = [
+          "images1/p1.png", // 2%
+          "images1/p2.png", // 2%
+          "images1/p7.png", // 2%
+          "images1/p11.png", // 10%
+          "images1/p3.png",  // 14%
+          "images1/p10.png", // 20%
+          "images1/p12.png", // 20%
+          "images1/p6.png" // 30%
+        ];
+        var auto = "";
+
+        var clickNum = $.cookie('count');
+        // for test
+        clickNum = 3;
+        console.log('on enter', clickNum);
+
+        var isGrandPrize = false;
+
+        if (clickNum > 0) {
+            $('.clicknum').text(clickNum);
+            $('#redux').eraser({
+                size: 50,   //设置橡皮擦大小
+                completeRatio: .7, //设置擦除面积比例
+                completeFunction: showResetButton   //大于擦除面积比例触发函数
+            });
+
+
+            var thanks = false;
+            var arrinfo = "";
+            var prizes = [];
+
+            function test(){
+              /*获取随机数*/
+              info = parseInt(Math.random() * 80);
+
+              // 获取一次大奖随机数
+              if (clickNum == 1 && !isGrandPrize) {
+                info = 1;
+              }
+
+              console.log('info', info);
+              $(".removes").remove();
+              $(".img").remove();
+              /*通过判断设置出现概率*/
+              if (info <= 30) { // %2 = imgarr[0] or imgarr[1] or imgarr[2]
+                  var rand = parseInt(Math.random() * 3);
+                  arrinfo = imgarr[1];
+                  thanks = true;
+                  isGrandPrize = true;
+              } else if (info >= 31 && info <= 60) {
+                  arrinfo = imgarr[2];
+                  thanks = true;
+              } else if (info >= 61  && info <= 80) {
+                  arrinfo = imgarr[3];
+                  thanks = true;
+              }
+
+              // else if (info >= 0 && info <= 0) {
+              //     var ran = parseInt(Math.random() *2+5 );
+              //     arrinfo = imgarr[ran];
+              //     thanks = true;
+              // } else if (info >= 0 && info <= 0) {
+              //     arrinfo = imgarr[7];
+              //     thanks = true;
+              // }
+
+  //        $("#mask_img_bg>img").attr("src", arrinfo);
+              auto = "<img src='"+arrinfo+"' class='removes'>";
+
+              console.log('auto', auto);
+              $("#mask_img_bg>span").append(auto);
+            }
+            test();
+
+            function showResetButton() {
+//            $(".prize-img").attr("src", arrinfo);
+                auto = "<img src='"+arrinfo+"' class='img'>";
+                $(".prize-span").append(auto);
+                if (thanks == true) {
+                    $(".main_box .hint-show,.main_box .mask").fadeIn(300);
+
+
+                    $('.fireworks').show();
+
+                    prizes.push(arrinfo);
+                    console.log('prizes', prizes);
+                    $.cookie('prizes', prizes);
+                }
+                else if(thanks==false){
+                  $(".main_box .join,.main_box .mask").fadeIn(300);
+
+                }
+                clickNum--;
+                console.log('clickNum', clickNum);
+                $.cookie('count', clickNum);
+                $('.clicknum').html(clickNum);
+            }
+
+            $(".main_box .mask,.main_box .fireworks .hint-show .close,.main_box .hint-show .btn").click(function () {
+
+                console.log('close', clickNum);
+                if (clickNum > 0) {
+                  // reset
+                  test();
+                  $('#redux').eraser('reset');
+                } else {
+                  location.reload();
+                }
+
+                $(".main_box .hint-show,.main_box .mask").fadeOut(300);
+                $(".fireworks").hide();
+            });
+            $(".main_box .join .btn").click(function(){
+              $(".main_box .join,.main_box .mask").fadeOut(300);
+
+              if (clickNum > 0) {
+                // reset
+                test();
+                $('#redux').eraser('reset');
+              } else {
+                location.reload();
+              }
+            })
+        } else {
+          window.location.href = "acquiring.html";
+        }
+    })
+</script>
+
+</body>
+</html>

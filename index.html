@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon"/>
+  <title>Ilahui Lucky Draw</title>
+  <style>
+  *{margin: 0;padding: 0}
+  html{
+       width: 100%;
+       height: 100%;
+       overflow:hidden;
+     }
+    .box{
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow:hidden;
+      background: #083a34;
+      background: url("images/prize_bg.png") no-repeat;
+      background-size:cover;
+      margin-right: auto;
+      margin-left: auto;
+      background-position: center center;
+      font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, "黑体", Arial, Tahoma
+    }
+
+    .Body{
+      text-align: center;
+      position: absolute;
+      bottom:210px;
+      left: 50%;
+      margin-left:-364px;
+      width: 728px;
+      height: 160px;
+    }
+    .button{
+      width: 100px;
+      height: 100px;
+      margin:10px;
+      border:2px solid #083a34;
+      font-size: 30px;
+      border-radius：20px;
+      -webkit-border-radius:20px;
+      background: #fff;
+      color:#083a34;
+      font-weight: bold;
+
+
+    }
+    .logo{
+      width: 480px;
+      height: 221px;
+      margin:0 auto;
+      margin-top: 100px;
+
+    }
+    .logo img{
+      width: 480px;
+      height: 221px;
+
+    }
+
+  </style>
+</head>
+<body class="box">
+  <div class="logo"><img src="images/logo.png" alt=""></div>
+  <div class="Body">
+      <button class="button">1</button>
+      <button class="button">2</button>
+      <button class="button">3</button>
+      <button class="button">4</button>
+      <button class="button">5</button>
+      <button class="button">6</button>
+      <button class="button">7</button>
+      <button class="button">8</button>
+      <button class="button">9</button>
+      <button class="button">10</button>
+    </div>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        $(".button").click(function(){
+             var num = $(this).text();
+             console.log('num', num);
+
+             // for online
+             $.cookie('count', num);
+             window.location.href = "validation.html";
+        })
+      })
+    </script>
+
+</body>
+</html>
+
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/cookie.js"></script>
